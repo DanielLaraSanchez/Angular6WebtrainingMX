@@ -13,7 +13,7 @@ import { GetImageUrlPipe } from './common/pipes/get-image-url.pipe';
 import { LoginFormComponent } from './public/login/login-form/login-form.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { AuthHomeComponent } from './auth/auth-home/auth-home.component';
-
+import{ SessionStorageService } from 'ngx-webstorage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,7 @@ import { AuthHomeComponent } from './auth/auth-home/auth-home.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [VehiclesService],
+  providers: [VehiclesService, SessionStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

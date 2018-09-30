@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../common/services/authentication.service';
-
+import { SessionStorageService } from 'ngx-webstorage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +15,9 @@ export class LoginFormComponent implements OnInit {
     password: 'esmeralda'
   };
 
-  constructor(public _authentificationService: AuthenticationService) { }
+  constructor(public _authentificationService: AuthenticationService,
+              public _sessionStorageService: SessionStorageService,
+              public _router: Router) { }
 
   ngOnInit() {
   }
@@ -26,11 +29,18 @@ export class LoginFormComponent implements OnInit {
     this._authentificationService.login(this.user.email, this.user.password).subscribe(
       (data) =>{
         console.log(data)
+        this._authentificationService.user = data;
+        this._authentificationService.hasSession = true;
+        this._sessionStorageService.store('user', data);
+        this._router.navigate(['/auth-home']);
+
       },
-      error =>
-        console.log(error),
+      error => {
+          console.log(error);
+          this._authentificationService.hasSession = false;
+        },
         () => {
-          
+
         }
 
     )
