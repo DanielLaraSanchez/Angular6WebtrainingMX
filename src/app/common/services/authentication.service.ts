@@ -16,7 +16,7 @@ export class AuthenticationService {
 
 
   public isLoggedIn(){
-    return false;
+    return fals;
   }
 
   public login(email: string, password: string) {
