@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent} from './public/home/home.component';
 import { AuthHomeComponent} from  './auth/auth-home/auth-home.component';
+import { PublicGuard } from './common/guards/public.guard';
+import { AuthGuard } from './common/guards/auth.guard';
+
 const routes: Routes = [{
   path: '',
   pathMatch: 'full',
@@ -11,12 +14,13 @@ const routes: Routes = [{
 }, {
   path: 'home',
   component: HomeComponent,
-  pathMatch: 'full'
+  pathMatch: 'full',
+  canActivate: [PublicGuard]
 },
 {
   path: 'auth-home',
   component: AuthHomeComponent,
-  pathMatch: 'full'
+  canActivate: [AuthGuard]
 }
 ];
 
