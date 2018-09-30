@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../../common/services/authentication.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -11,8 +13,8 @@ export class LoginFormComponent implements OnInit {
     email: 'esmeralda@webtraining.zone',
     password: 'esmeralda'
   };
-  
-  constructor() { }
+
+  constructor(public _authentificationService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -21,5 +23,16 @@ export class LoginFormComponent implements OnInit {
     event.preventDefault();
 
     console.log('>>send POST request with form')
+    this._authentificationService.login(this.user.email, this.user.password).subscribe(
+      (data) =>{
+        console.log(data)
+      },
+      error =>
+        console.log(error),
+        () => {
+          
+        }
+
+    )
   }
 }

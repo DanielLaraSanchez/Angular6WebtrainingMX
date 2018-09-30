@@ -20,7 +20,7 @@ export class AuthenticationService {
   }
 
   public login(email: string, password: string) {
-   const url = `${API.AUTH_SERVICES_BASE_URL}/auth/login`;
+   const url = `${API.AUTH_SERVICES_BASE_URL}auth/login`;
 
    return this._http.post(url, {
      'email': email,
