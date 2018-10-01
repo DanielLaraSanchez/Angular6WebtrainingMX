@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../common/services/authentication.service';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
+import { HeaderComponent } from '../../../common/header/header.component';
 
 @Component({
   selector: 'app-login-form',
@@ -17,7 +18,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(public _authentificationService: AuthenticationService,
               public _sessionStorageService: SessionStorageService,
-              public _router: Router) { }
+              public _router: Router,
+              public headerComponent: HeaderComponent) { }
 
   ngOnInit() {
   }
@@ -33,6 +35,8 @@ export class LoginFormComponent implements OnInit {
         this._authentificationService.hasSession = true;
         this._sessionStorageService.store('user', data);
         this._router.navigate(['/auth-home']);
+        this.headerComponent.isModalActive = false;
+
 
       },
       error => {
