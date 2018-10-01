@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../common/services/authentication.service';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../../../common/header/header.component';
+import { AfterLoginActionService } from '../../../common/services/after-login-action.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -19,7 +21,8 @@ export class LoginFormComponent implements OnInit {
   constructor(public _authentificationService: AuthenticationService,
               public _sessionStorageService: SessionStorageService,
               public _router: Router,
-              public headerComponent: HeaderComponent) { }
+              public headerComponent: HeaderComponent,
+              public _afterLoginService: AfterLoginActionService) { }
 
   ngOnInit() {
   }
@@ -34,8 +37,9 @@ export class LoginFormComponent implements OnInit {
         this._authentificationService.user = data;
         this._authentificationService.hasSession = true;
         this._sessionStorageService.store('user', data);
+        this._afterLoginService.onLoginCompleted.emit('Done');
         this._router.navigate(['/auth-home']);
-        this.headerComponent.isModalActive = false;
+        // this.headerComponent.isModalActive = false;
 
 
       },
